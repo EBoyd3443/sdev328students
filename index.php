@@ -2,6 +2,7 @@
 
 ini_set("display_errors", 1);
 
+require_once("vendor/autoload.php");
 require_once $_SERVER['DOCUMENT_ROOT'].'/../config.php';
 
 try{
