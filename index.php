@@ -13,7 +13,25 @@ try{
 
     $f3->route('GET||POST /', function($f3) {
 
-        $dbh = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+        if ($_SERVER['REQUEST_METHOD'] == "POST")
+        {
+            var_dump($_POST);
+            $dbh = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+            $sql = "INSERT INTO student (sid, last, first, birthdate ,gpa, advisor) VALUES (:sid, :last, :first, :birthdate, :gpa, :advisor)";
+
+            $statement = $dbh->prepare($sql);
+            $statement->bindParam(':sid', $_POST['SID']);
+            $statement->bindParam(':last', $_POST['Last']);
+            $statement->bindParam(':first', $_POST['First']);
+            $statement->bindParam(':birthdate', $_POST['BirthDate']);
+            $statement->bindParam(':gpa', $_POST['GPA']);
+            $statement->bindParam(':advisor', $_POST['Advisor']);
+
+            $statement->execute();
+
+
+            $f3->reroute('students');
+        }
 
         $view = new Template();
         echo $view->render("views/form.html");
