@@ -20,7 +20,7 @@ try{
     });
 
     $f3->route('GET /students', function($f3, $dbh) {
-        $sql = "SELECT * FROM pets";
+        $sql = "SELECT * FROM student";
 
         $statement = $dbh->prepare($sql);
 
@@ -33,7 +33,9 @@ try{
         $view = new Template();
         echo $view->render("views/studentList.html");
     });
+    $f3->run();
 }
 catch(PDOException $e){
+    echo "<p>OH SNAP</p>";
     die("<h1>Database Missing!</h1>");
 }
