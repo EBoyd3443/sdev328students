@@ -8,9 +8,9 @@
     <title>StudentList</title>
 </head>
 <body>
-<h3>Student List</h3>
-<repeat group="students" value="studentValue">
-    <p> {{ @SESSION.id }}: {{ @SESSION.last }} {{ @SESSION.first }}</p>
+<h3>Student List3</h3>
+<repeat group="@students" value="@studentValue">
+    <p> {{ @studentValue['sid'] }}: {{ @studentValue['last'] }} {{ @studentValue['first'] }}</p>
 </repeat>
 </body>
 </html>

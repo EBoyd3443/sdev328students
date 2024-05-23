@@ -6,20 +6,22 @@ require_once("vendor/autoload.php");
 require_once $_SERVER['DOCUMENT_ROOT'].'/../config.php';
 
 try{
-    $dbh = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+
 
 
     $f3 = Base::instance();
 
     $f3->route('GET||POST /', function($f3) {
 
-
+        $dbh = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
 
         $view = new Template();
         echo $view->render("views/form.html");
     });
 
-    $f3->route('GET /students', function($f3, $dbh) {
+    $f3->route('GET /students', function($f3) {
+        $dbh = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+
         $sql = "SELECT * FROM student";
 
         $statement = $dbh->prepare($sql);
@@ -29,6 +31,7 @@ try{
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         $f3->set("students", $result);
+        echo $result;
 
         $view = new Template();
         echo $view->render("views/studentList.html");
